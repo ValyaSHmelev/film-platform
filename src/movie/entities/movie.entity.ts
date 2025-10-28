@@ -3,8 +3,10 @@ import {
     PrimaryGeneratedColumn,
     Column,
     CreateDateColumn,
-    UpdateDateColumn
+    UpdateDateColumn,
+    OneToMany
 } from "typeorm";
+import { ReviewEntity } from "../../review/entities/review.entity";
 
 enum Genre {
     ACTION = 'Action',
@@ -61,6 +63,9 @@ export class MovieEntity {
         default: Genre.DRAMA
     })
     genre: Genre;
+
+    @OneToMany(() => ReviewEntity, (review) => review.movie)
+    reviews: ReviewEntity[];
 
     @CreateDateColumn()
     created_at: Date;

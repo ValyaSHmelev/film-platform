@@ -3,7 +3,7 @@ import { MovieService } from './movie.service';
 import { MovieEntity } from './entities/movie.entity';
 import { CreateMovieDto } from './dto/create-movie.dto';
 
-@Controller('movie')
+@Controller('movies')
 export class MovieController {
   constructor(private readonly movieService: MovieService) {}
 
