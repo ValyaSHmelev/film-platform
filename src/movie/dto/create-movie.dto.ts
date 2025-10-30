@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, Max, Min } from "class-validator";
+import { IsArray, IsInt, IsNotEmpty, Max, Min, IsUUID } from "class-validator";
 
 export class CreateMovieDto {
     @IsNotEmpty()
@@ -12,4 +12,8 @@ export class CreateMovieDto {
     @Min(0)
     @Max(new Date().getFullYear())
     release_year: number;
+
+    @IsArray()
+    @IsUUID('4', { each: true })
+    actor_ids: string[];
 }
