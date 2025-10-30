@@ -6,10 +6,13 @@ import {
     UpdateDateColumn,
     OneToMany,
     ManyToMany,
-    JoinTable
+    JoinTable,
+    OneToOne,
+    JoinColumn
 } from "typeorm";
 import { ReviewEntity } from "../../review/entities/review.entity";
 import { ActorEntity } from "../../actor/entites/actor.entity";
+import { MoviePosterEntity } from "./poster.entity";
 
 enum Genre {
     ACTION = 'Action',
@@ -66,6 +69,22 @@ export class MovieEntity {
         default: Genre.DRAMA
     })
     genre: Genre;
+
+    @Column({
+        type: 'uuid',
+        nullable: true
+    })
+    poster_id: string;
+
+    @OneToOne(() => MoviePosterEntity, (poster) => poster.movie, {
+        onDelete: 'CASCADE',
+        nullable: true
+    })
+    @JoinColumn({
+        name: 'poster_id',
+        referencedColumnName: 'id'
+    })
+    poster: MoviePosterEntity | null;
 
     @OneToMany(() => ReviewEntity, (review) => review.movie)
     reviews: ReviewEntity[];
